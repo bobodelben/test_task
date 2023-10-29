@@ -18,5 +18,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com'
         ]);
+
+        \App\Models\Type::create(["id" => 1, "name" => "Student"]);
+        \App\Models\Type::create(["id" => 2, "name" => "Teacher"]);
+
+        \App\Models\Question::create(["field" => "Year of Admission", "type" => "number"]);
+        \App\Models\Question::create(["field" => "Avg Score", "type" => "select", "options" => json_encode(['60-74', '75-89', '90-100'])]);
     }
 }
