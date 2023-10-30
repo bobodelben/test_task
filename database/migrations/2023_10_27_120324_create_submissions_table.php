@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
+            $table->json("answers");
+            $table->foreignId("unit_of_analysis_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

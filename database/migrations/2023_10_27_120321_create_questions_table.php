@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->string("field");
-            $table->string("type");
+            $table->string("type")->nullable();
             $table->json("options")->nullable();
+            $table->foreignId("survey_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

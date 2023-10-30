@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
+        $user = \App\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com'
         ]);
@@ -22,7 +22,15 @@ class DatabaseSeeder extends Seeder
         \App\Models\Type::create(["id" => 1, "name" => "Student"]);
         \App\Models\Type::create(["id" => 2, "name" => "Teacher"]);
 
-        \App\Models\Question::create(["field" => "Year of Admission", "type" => "number"]);
-        \App\Models\Question::create(["field" => "Avg Score", "type" => "select", "options" => json_encode(['60-74', '75-89', '90-100'])]);
+        $survey = \App\Models\Survey::create(["type_id" => 1, "name" => "Students"]);
+        $survey->questions()->create(["field" => "Year of Admission", "type" => "number"]);
+        $survey->questions()->create(["field" => "Avg Score", "type" => "select", "options" => ["60-74", "75-89", "90-100"]]);
+
+        $survey = \App\Models\Survey::create(["type_id" => 2, "name" => "Teachers"]);
+
+        $survey->questions()->create(["field" => "Degree"]);
+        $survey->questions()->create(["field" => "Lessons", "type" => "checkbox", "options" => ["Math", "Literature", "Philosophy"]]);
+
+        \App\Models\UnitOfAnalysis::create(["type_id" => 1, "user_id" => $user->id]);
     }
 }
